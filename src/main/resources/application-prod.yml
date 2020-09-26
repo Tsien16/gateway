@@ -14,11 +14,15 @@ spring:
         locator:
           # 让gateway通过服务发现组件找到其它微服务
           enabled: true
-#      routes:
-#        - id: user_route
-#          uri: lb://user-center
-#          predicates:
-#            - TimeBetween=上午0:00,下午7:20
+      routes:
+        - id: user_route
+          uri: lb://user-center
+          predicates:
+            - Path=/users/**
+        - id: content_route
+          uri: lb://content-center
+          predicates:
+            - Path=/shares/**,/admin/shares/**
 
 management:
   endpoints:
